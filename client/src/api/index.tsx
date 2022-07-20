@@ -47,4 +47,26 @@ const updateNote = async (note: Note) => {
   return axios(options).then((res) => console.log(res.data));
 };
 
-export { createNote, getNotes, updateNote };
+const deleteNote = async ({ _id }: { _id: string }) => {
+  const options: AxiosRequestConfig = {
+    url: 'http://localhost:5000/note/deleteNote',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: {
+      _id: _id,
+    },
+  };
+  return axios(options).then((res) => console.log(res.data));
+};
+
+const getSearchableFields = async () => {
+  const options: AxiosRequestConfig = {
+    url: 'http://localhost:5000/note/schema',
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  return axios(options).then((res) => res.data);
+};
+
+export { createNote, getNotes, updateNote, deleteNote, getSearchableFields };

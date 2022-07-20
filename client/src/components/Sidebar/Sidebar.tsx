@@ -5,19 +5,9 @@ import {
 } from 'react-icons/ai';
 import { IoIosHome } from 'react-icons/io';
 import { CgFileDocument } from 'react-icons/cg';
-import {
-  IconButton,
-  Box,
-  useColorModeValue,
-  theme,
-  Flex,
-  Link,
-} from '@chakra-ui/react';
+import { IconButton, Flex, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-
-// const buttonProps = {
-
-// }
+import { Search } from '../Search';
 
 export const Sidebar = () => {
   return (
@@ -31,16 +21,7 @@ export const Sidebar = () => {
       direction='column'
       align='center'
     >
-      <IconButton
-        aria-label='Search notes'
-        size='md'
-        color='#CCC'
-        bg='#404040'
-        mt='2'
-        isRound
-        _hover={{ background: '' }}
-        icon={<AiOutlineSearch size='20px' />}
-      />
+      <Search />
       <Link as={RouterLink} to='/notes/create' w='100%'>
         <IconButton
           aria-label='New note'
@@ -52,16 +33,6 @@ export const Sidebar = () => {
           icon={<AiOutlinePlus size='20px' />}
         />
       </Link>
-      {/* <Flex
-        _hover={{ color: 'green' }}
-        bg='blue'
-        mt='2'
-        w='100%'
-        h='30px'
-        justify='center'
-        align='center'
-        pos='relative'
-      > */}
       <Link as={RouterLink} to='/home' w='100%'>
         <IconButton
           aria-label='Home'

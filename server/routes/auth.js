@@ -84,7 +84,6 @@ export const isAuthorized = (req, res, next) => {
   try {
     //verify token
     const decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decodedJWT: ', decodedJWT);
     req.user = decodedJWT;
     next();
   } catch (e) {

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Button, Flex, Input, HStack } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 import { Tag } from '../Tag';
-import { updateNote } from '../../api';
+import { updateNote, deleteNote } from '../../api';
 import { useQueryClient, useMutation } from 'react-query';
 import 'react-quill/dist/quill.snow.css';
 
@@ -12,6 +12,11 @@ export const Editor = () => {
   const queryClient = useQueryClient();
   const { register, handleSubmit, setValue, watch } = useFormContext();
   const mutation = useMutation(updateNote, {
+    onSuccess: (data) => {
+      setTimeout(() => queryClient.invalidateQueries('getNotes'), 100);
+    },
+  });
+  const deleteMutation = useMutation(deleteNote, {
     onSuccess: (data) => {
       setTimeout(() => queryClient.invalidateQueries('getNotes'), 100);
     },
@@ -46,6 +51,10 @@ export const Editor = () => {
 
   const onSubmit = async (data: any) => {
     mutation.mutate(data);
+  };
+
+  const onDelete = async (data: any) => {
+    deleteMutation.mutate(data);
   };
 
   const onTagEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -123,6 +132,10 @@ export const Editor = () => {
           onClick={handleSubmit(onSubmit)}
         >
           Update
+        </Button>
+
+        <Button bg='red' mt={5} type='submit' onClick={handleSubmit(onDelete)}>
+          Delete
         </Button>
 
         <Input
